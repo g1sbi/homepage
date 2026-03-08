@@ -2,14 +2,16 @@
   import '../app.css';
 </script>
 
-<div class="flex flex-col md:flex-row md:items-start md:justify-center gap-6 my-6 px-4 max-w-5xl mx-auto">
-  <div class="terminal min-h-full flex-1 md:max-w-3xl md:flex-none">
-    <div class="terminal-title">gisbi@homepage ~</div>
-    <div class="p-4 sm:p-6">
-      <slot />
+<div class="flex flex-col md:flex-row h-screen w-full">
+  <div class="flex-1 min-h-0 flex flex-col min-w-0">
+    <div class="terminal h-full w-full max-w-4xl mx-auto flex flex-col">
+      <div class="terminal-title shrink-0">gisbi@homepage ~</div>
+      <div class="flex-1 min-h-0 flex flex-col p-4 sm:p-6">
+        <slot />
+      </div>
     </div>
   </div>
-  <aside class="font-mono text-sm shrink-0 md:pt-8 md:pl-2 md:sticky md:top-6 flex flex-row md:flex-col gap-4 md:gap-6">
+  <aside class="font-mono text-sm shrink-0 py-4 px-4 md:pr-6 md:pl-0 border-t md:border-t-0 border-primary-800 flex flex-row md:flex-col gap-4 md:gap-6 justify-center md:justify-center">
     <a
       href="https://github.com/g1sbi"
       target="_blank"

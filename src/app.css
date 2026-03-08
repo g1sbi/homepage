@@ -47,8 +47,32 @@
 }
 
 .terminal {
+  position: relative;
   border: 1px solid rgb(var(--color-primary-800));
   background-color: #0a0a0a;
+  overflow: hidden;
+}
+
+.terminal::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100vmax;
+  height: 100vmax;
+  margin-left: -50vmax;
+  margin-top: -50vmax;
+  z-index: 0;
+  background-image: url(/background.webp);
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px) brightness(0.2);
+  transform: rotate(90deg);
+}
+
+.terminal > * {
+  position: relative;
+  z-index: 1;
 }
 
 .terminal-title {
@@ -72,6 +96,7 @@
 @keyframes blink {
   50% { opacity: 0; }
 }
+
 
 html.dark,
 html[data-theme='cyberpunk'] {
