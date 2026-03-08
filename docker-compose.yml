@@ -1,7 +1,6 @@
 services:
   web:
     build: .
-    network_mode: host
     restart: unless-stopped
     environment:
       - HOST=0.0.0.0
