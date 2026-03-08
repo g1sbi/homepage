@@ -4,6 +4,7 @@ import whoami from './whoami.js';
 import blog from './blog.js';
 import help from './help.js';
 import projects from './projects.js';
+import cd from './cd.js';
 
 const commands = new Map<string, CommandHandler>();
 commands.set('ls', ls);
@@ -11,6 +12,7 @@ commands.set('whoami', whoami);
 commands.set('blog', blog);
 commands.set('projects', projects);
 commands.set('help', help);
+commands.set('cd', cd);
 
 export function runCommand(name: string, args: string[]): CommandResult {
   const handler = commands.get(name.toLowerCase());

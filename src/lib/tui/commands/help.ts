@@ -10,8 +10,9 @@ const help: CommandHandler = () => ({
     '',
     '  ls         list sections (projects, blog)',
     '  whoami     show current user',
-    '  projects   go to projects',
     '  blog       go to blog',
+    '  projects   go to projects',
+    '  cd         go back home (or cd .., cd ~)',
     '  help       show this help'
   ]
 });

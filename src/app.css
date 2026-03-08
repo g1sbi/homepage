@@ -97,6 +97,15 @@
   50% { opacity: 0; }
 }
 
+.tui-content-enter {
+  animation: tui-content-fade 0.35s ease-out 0.25s both;
+}
+
+@keyframes tui-content-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 
 html.dark,
 html[data-theme='cyberpunk'] {

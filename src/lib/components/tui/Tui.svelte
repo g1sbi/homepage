@@ -8,6 +8,7 @@
   export let history: HistoryEntry[] = [];
   export let value = '';
   export let inputEl: HTMLInputElement | undefined = undefined;
+  export let inputPlaceholder: string | undefined = undefined;
 
   let scrollEl: HTMLDivElement;
 
@@ -30,11 +31,13 @@
         <OutputRenderer result={entry.result} />
       </div>
     {/each}
+    <slot name="content" />
     <div>
       <CommandLine
         prompt="$"
         bind:value
         bind:inputEl
+        emptyHint={inputPlaceholder ?? 'type "help" for a list of commands'}
         on:submit={handleSubmit}
       />
     </div>
