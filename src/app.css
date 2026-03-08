@@ -1,0 +1,89 @@
+@import '@fontsource/jetbrains-mono';
+@import '@fontsource/audiowide';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  [data-theme='cyberpunk'] {
+    color: rgb(var(--color-primary-300));
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+[data-theme='cyberpunk'],
+.dark [data-theme='cyberpunk'] {
+  --theme-font-family-heading: 'JetBrains Mono', monospace;
+  --theme-font-family-base: 'JetBrains Mono', monospace;
+  --color-primary-50: 254 242 242;
+  --color-primary-100: 254 226 226;
+  --color-primary-200: 254 202 202;
+  --color-primary-300: 252 165 165;
+  --color-primary-400: 248 113 113;
+  --color-primary-500: 239 68 68;
+  --color-primary-600: 220 38 38;
+  --color-primary-700: 185 28 28;
+  --color-primary-800: 153 27 27;
+  --color-primary-900: 127 29 29;
+  --color-surface-50: 45 45 45;
+  --color-surface-100: 38 38 38;
+  --color-surface-200: 32 32 32;
+  --color-surface-300: 26 26 26;
+  --color-surface-400: 22 22 22;
+  --color-surface-500: 18 18 18;
+  --color-surface-600: 15 15 15;
+  --color-surface-700: 13 13 13;
+  --color-surface-800: 11 11 11;
+  --color-surface-900: 8 8 8;
+}
+
+.hero-name {
+  font-family: 'Audiowide', sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.terminal {
+  border: 1px solid rgb(var(--color-primary-800));
+  background-color: #0a0a0a;
+}
+
+.terminal-title {
+  border-bottom: 1px solid rgb(var(--color-primary-800));
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: rgb(var(--color-primary-500));
+}
+
+.prompt {
+  color: rgb(var(--color-primary-500));
+  user-select: none;
+}
+
+.cursor-blink::after {
+  content: '▌';
+  color: rgb(var(--color-primary-400));
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+html.dark,
+html[data-theme='cyberpunk'] {
+  background-color: #050505;
+  color: rgb(var(--color-primary-300));
+}
+
+html.dark body,
+html[data-theme='cyberpunk'] body,
+body {
+  height: 100%;
+  background-color: #050505;
+  color: rgb(var(--color-primary-300));
+  font-family: 'JetBrains Mono', monospace;
+}
