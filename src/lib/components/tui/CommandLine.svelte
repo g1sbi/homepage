@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
 
   export let prompt = '$';
   export let commandText: string | undefined = undefined;
@@ -41,6 +42,13 @@
 </script>
 
 <p class="flex flex-wrap items-center gap-0 min-w-0">
+  {#if commandText === undefined && $page.url.pathname !== '/'}
+    <a href="/" class="shrink-0 mr-2 text-primary-500 hover:text-primary-300 transition-colors" aria-label="Go home">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+    </a>
+  {/if}
   <span class="prompt shrink-0">{prompt}</span>
   {#if commandText !== undefined}
     <span class="pl-2">{displayedCommandText}<span class="cursor-blink" class:invisible={commandDone}></span></span>

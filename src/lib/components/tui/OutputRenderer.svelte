@@ -12,6 +12,9 @@
   let textLineIndex = 0;
   let textCharIndex = 0;
   let textDone = false;
+  let lsItemIndex = 0;
+  let lsCharIndex = 0;
+  let lsDone = false;
   let errorDisplayed = '';
   let errorDone = false;
   let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -36,6 +39,33 @@
           clearTimer();
         }
       }, WHOAMI_CHAR_MS);
+    } else if (result.type === 'ls' && result.items.length > 0) {
+      const items = result.items;
+      let itemIndex = 0;
+      let charIndex = 0;
+      intervalId = setInterval(() => {
+        if (itemIndex >= items.length) {
+          lsDone = true;
+          lsItemIndex = items.length;
+          clearTimer();
+          return;
+        }
+        const item = items[itemIndex];
+        if (charIndex < item.name.length) {
+          lsCharIndex = charIndex + 1;
+          lsItemIndex = itemIndex;
+          charIndex += 1;
+        } else {
+          itemIndex += 1;
+          charIndex = 0;
+          lsItemIndex = itemIndex;
+          lsCharIndex = 0;
+          if (itemIndex >= items.length) lsDone = true;
+          if (itemIndex >= items.length) clearTimer();
+        }
+      }, TEXT_CHAR_MS);
+    } else if (result.type === 'ls') {
+      lsDone = true;
     } else if (result.type === 'text' && result.lines.length > 0) {
       const lines = result.lines;
       let lineIndex = 0;
@@ -80,7 +110,20 @@
   });
 </script>
 
-{#if result.type === 'text'}
+{#if result.type === 'ls'}
+  <div class="my-2 space-y-1 font-mono">
+    {#each result.items.slice(0, lsItemIndex) as item}
+      <p class="min-h-[1.25em]">
+        <a href={item.path} class="text-primary-300 underline hover:text-primary-200 transition-colors">{item.name}</a>
+      </p>
+    {/each}
+    {#if !lsDone && lsItemIndex < result.items.length}
+      <p class="min-h-[1.25em]">
+        <span class="text-primary-300 underline">{result.items[lsItemIndex].name.slice(0, lsCharIndex)}</span><span class="cursor-blink"></span>
+      </p>
+    {/if}
+  </div>
+{:else if result.type === 'text'}
   <div class="my-2 space-y-1 font-mono">
     {#each result.lines.slice(0, textLineIndex) as line, i}
       <p class="min-h-[1.25em] whitespace-pre">{#if line === ''}&nbsp;{:else}{line}{/if}</p>

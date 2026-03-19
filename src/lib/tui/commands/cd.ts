@@ -7,6 +7,7 @@ const cd: CommandHandler = (args) => {
   }
   if (target === 'blog') return { type: 'navigate', path: '/blog' };
   if (target === 'projects') return { type: 'navigate', path: '/projects' };
+  if (target === 'music') return { type: 'navigate', path: '/music' };
   return { type: 'error', message: `cd: no such directory: ${target}` };
 };
 

@@ -5,7 +5,9 @@
 <div class="flex flex-col md:flex-row h-screen w-full">
   <div class="flex-1 min-h-0 flex flex-col min-w-0">
     <div class="terminal h-full w-full max-w-4xl mx-auto flex flex-col">
-      <div class="terminal-title shrink-0">gisbi@homepage ~</div>
+      <div class="terminal-title shrink-0">
+        <a href="/" class="hover:text-primary-300 transition-colors">gisbi@homepage ~</a>
+      </div>
       <div class="flex-1 min-h-0 flex flex-col p-4 sm:p-6">
         <slot />
       </div>

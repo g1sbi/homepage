@@ -5,12 +5,14 @@ import blog from './blog.js';
 import help from './help.js';
 import projects from './projects.js';
 import cd from './cd.js';
+import music from './music.js';
 
 const commands = new Map<string, CommandHandler>();
 commands.set('ls', ls);
 commands.set('whoami', whoami);
 commands.set('blog', blog);
 commands.set('projects', projects);
+commands.set('music', music);
 commands.set('help', help);
 commands.set('cd', cd);
 
