@@ -2,17 +2,14 @@ services:
   web:
     build: .
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     env_file:
       - .env
     environment:
       - HOST=0.0.0.0
       - PORT=3000
     networks:
-      - default
-      - lsio
+      - net_homepage
 
 networks:
-  lsio:
-    external: true
+  net_homepage:
+    name: net_homepage

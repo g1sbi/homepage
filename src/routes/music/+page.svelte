@@ -43,6 +43,8 @@
     class="flex-1 min-h-0 w-full border-0"
     title="Strudel music playground"
     allow="autoplay; microphone"
+    allowtransparency="true"
+    style="background: transparent"
     on:load={onIframeLoad}
   ></iframe>
   <div class="font-mono text-sm px-4 sm:px-6 py-2 border-t border-primary-800 flex items-center gap-2 shrink-0">
