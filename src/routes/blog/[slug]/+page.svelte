@@ -1,9 +1,8 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
-  import type { HistoryEntry } from '$lib/tui/types.js';
   import { runCommand } from '$lib/tui/commands/index.js';
-  import Tui from '$lib/components/tui/Tui.svelte';
+  import CommandLine from '$lib/components/tui/CommandLine.svelte';
   import { assetUrl } from '$lib/api.js';
   import type { PageData } from './$types.js';
 
@@ -11,8 +10,6 @@
 
   const { article, contentHtml } = data;
 
-  const initialResult = { type: 'navigate' as const, path: `/blog/${article.slug}` };
-  let history: HistoryEntry[] = [{ command: 'cd', args: [`blog/${article.slug}`], result: initialResult }];
   let input = '';
   let inputEl: HTMLInputElement | undefined = undefined;
 
@@ -25,9 +22,7 @@
       goto(result.path);
       return;
     }
-    history = [...history, { command: cmd, args, result }];
     input = '';
-    setTimeout(() => inputEl?.focus(), 0);
   }
 
   function formatDate(dateStr: string): string {
@@ -42,44 +37,46 @@
 </svelte:head>
 
 <main class="font-mono text-sm sm:text-base flex-1 min-h-0 flex flex-col">
-  <Tui {history} bind:value={input} bind:inputEl inputPlaceholder='type "cd blog" to go back' on:submit={handleSubmit}>
-    <div slot="content" class="mb-4 tui-content-enter">
-      <a href="/blog" class="inline-block mb-4 text-primary-700 hover:text-primary-400 transition-colors text-xs">← blog</a>
-      <p class="mb-1 text-primary-400">{article.title}</p>
-      <p class="mb-6 text-primary-700 text-xs">{formatDate(article.date_created)}</p>
+<div class="flex-1 min-h-0 overflow-auto p-4 sm:p-6">
+  <a href="/blog" class="inline-block mb-4 text-primary-700 hover:text-primary-400 transition-colors text-xs">← blog</a>
+  <p class="mb-1 text-primary-400">{article.title}</p>
+  <p class="mb-6 text-primary-700 text-xs">{formatDate(article.date_created)}</p>
 
-      {#if article.cover_photo}
-        <div class="mb-6 border border-primary-800 max-w-lg">
-          <img
-            src={assetUrl(article.cover_photo.id, { width: '800', format: 'webp' })}
-            alt={article.cover_photo.title ?? article.title}
-            class="w-full h-auto"
-          />
-        </div>
-      {/if}
-
-      <div class="article-content text-primary-400 max-w-prose">
-        {@html contentHtml}
-      </div>
-
-      {#if article.gallery.length > 0}
-        <div class="mt-8">
-          <p class="mb-3 text-primary-700 text-xs">gallery</p>
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {#each article.gallery as { directus_files_id: file }}
-              <div class="border border-primary-800">
-                <img
-                  src={assetUrl(file.id, { width: '400', format: 'webp' })}
-                  alt={file.title ?? ''}
-                  class="w-full h-auto"
-                />
-              </div>
-            {/each}
-          </div>
-        </div>
-      {/if}
+  {#if article.cover_photo}
+    <div class="mb-6 border border-primary-800 max-w-lg">
+      <img
+        src={assetUrl(article.cover_photo.id, { width: '800', format: 'webp' })}
+        alt={article.cover_photo.title ?? article.title}
+        class="w-full h-auto"
+      />
     </div>
-  </Tui>
+  {/if}
+
+  <div class="article-content text-primary-400 max-w-prose">
+    {@html contentHtml}
+  </div>
+
+  {#if article.gallery.length > 0}
+    <div class="mt-8">
+      <p class="mb-3 text-primary-700 text-xs">gallery</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        {#each article.gallery as { directus_files_id: file }}
+          <div class="border border-primary-800">
+            <img
+              src={assetUrl(file.id, { width: '400', format: 'webp' })}
+              alt={file.title ?? ''}
+              class="w-full h-auto"
+            />
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/if}
+</div>
+
+<div class="shrink-0 px-4 sm:px-6 py-3 border-t border-primary-800">
+  <CommandLine bind:value={input} bind:inputEl emptyHint='type "cd blog" to go back' on:submit={handleSubmit} />
+</div>
 </main>
 
 <style>

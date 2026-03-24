@@ -23,7 +23,7 @@
   });
 </script>
 
-<div bind:this={scrollEl} class="flex-1 min-h-0 overflow-auto flex flex-col justify-end">
+<div bind:this={scrollEl} class="flex-1 min-h-0 overflow-auto flex flex-col">
   <div class="mt-auto">
     {#each history as entry}
       <div class="mb-2">
