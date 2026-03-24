@@ -31,3 +31,8 @@ bun-debug.log*
 # bun.lockb
 # pnpm-lock.yaml
 # yarn.lock
+
+# AI
+.claude/
+.cursor/
+_bmad/
