@@ -44,6 +44,7 @@
 <main class="font-mono text-sm sm:text-base flex-1 min-h-0 flex flex-col">
   <Tui {history} bind:value={input} bind:inputEl inputPlaceholder='type "cd blog" to go back' on:submit={handleSubmit}>
     <div slot="content" class="mb-4 tui-content-enter">
+      <a href="/blog" class="inline-block mb-4 text-primary-700 hover:text-primary-400 transition-colors text-xs">← blog</a>
       <p class="mb-1 text-primary-400">{article.title}</p>
       <p class="mb-6 text-primary-700 text-xs">{formatDate(article.date_created)}</p>
 

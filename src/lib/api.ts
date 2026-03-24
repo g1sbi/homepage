@@ -85,7 +85,7 @@ export async function createArticle(fetch: typeof globalThis.fetch, token: strin
   const res = await fetch(`${CMS_URL}/items/articles`, {
     method: 'POST',
     headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title: 'New article', slug: `new-article-${Date.now()}`, content: '', status: 'draft' }),
+    body: JSON.stringify({ title: 'New article', slug: `article-${Date.now()}`, content: '', status: 'draft' }),
   });
   if (!res.ok) return null;
   const { data } = await res.json();
