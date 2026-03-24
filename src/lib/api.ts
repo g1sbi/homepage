@@ -61,3 +61,49 @@ export async function getArticleBySlug(slug: string, fetch: typeof globalThis.fe
   const { data } = await res.json();
   return data?.[0] ?? null;
 }
+
+export async function getAllArticles(fetch: typeof globalThis.fetch, token: string): Promise<Article[]> {
+  const params = new URLSearchParams({
+    fields: 'id,title,slug,status,date_updated',
+    sort: '-date_updated',
+  });
+  const res = await fetch(`${CMS_URL}/items/articles?${params}`, { headers: authHeaders(token) });
+  if (!res.ok) return [];
+  const { data } = await res.json();
+  return data ?? [];
+}
+
+export async function getArticleById(id: string, fetch: typeof globalThis.fetch, token: string): Promise<Article | null> {
+  const params = new URLSearchParams({ fields: '*' });
+  const res = await fetch(`${CMS_URL}/items/articles/${id}?${params}`, { headers: authHeaders(token) });
+  if (!res.ok) return null;
+  const { data } = await res.json();
+  return data ?? null;
+}
+
+export async function createArticle(fetch: typeof globalThis.fetch, token: string): Promise<Article | null> {
+  const res = await fetch(`${CMS_URL}/items/articles`, {
+    method: 'POST',
+    headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: 'New article', slug: `new-article-${Date.now()}`, content: '', status: 'draft' }),
+  });
+  if (!res.ok) return null;
+  const { data } = await res.json();
+  return data ?? null;
+}
+
+export async function updateArticle(
+  id: string,
+  patch: Partial<Pick<Article, 'title' | 'slug' | 'content' | 'status'>>,
+  fetch: typeof globalThis.fetch,
+  token: string
+): Promise<Article | null> {
+  const res = await fetch(`${CMS_URL}/items/articles/${id}`, {
+    method: 'PATCH',
+    headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify(patch),
+  });
+  if (!res.ok) return null;
+  const { data } = await res.json();
+  return data ?? null;
+}
