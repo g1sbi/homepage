@@ -9,6 +9,12 @@ export const load: PageServerLoad = async ({ fetch, cookies }) => {
 };
 
 export const actions: Actions = {
+  logout: async ({ cookies }) => {
+    cookies.delete('dt', { path: '/admin' });
+    cookies.delete('dtr', { path: '/admin' });
+    cookies.delete('dte', { path: '/admin' });
+    throw redirect(302, '/admin/login');
+  },
   create: async ({ fetch, cookies }) => {
     const token = cookies.get('dt')!;
     const article = await createArticle(fetch, token);

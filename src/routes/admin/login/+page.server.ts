@@ -18,12 +18,10 @@ export const actions: Actions = {
     if (!res.ok) return fail(401, { error: 'Invalid credentials' });
 
     const { data: auth } = await res.json();
-    cookies.set('dt', auth.access_token, {
-      httpOnly: true,
-      path: '/admin',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7,
-    });
+    const cookieOpts = { httpOnly: true, path: '/admin', sameSite: 'strict' as const, maxAge: 60 * 60 * 24 * 7 };
+    cookies.set('dt', auth.access_token, cookieOpts);
+    cookies.set('dtr', auth.refresh_token, cookieOpts);
+    cookies.set('dte', String(Date.now() + auth.expires), cookieOpts);
 
     throw redirect(302, '/admin');
   },

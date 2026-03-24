@@ -139,7 +139,7 @@
 
     <label class="tbtn cursor-pointer {uploading ? 'opacity-40 pointer-events-none' : ''}" title="Upload image">
       {uploading ? '…' : '📷'}
-      <input type="file" accept="image/*" capture="environment" class="hidden" on:change={handleImageUpload} disabled={uploading} />
+      <input type="file" accept="image/*" class="hidden" on:change={handleImageUpload} disabled={uploading} />
     </label>
 
     <span class="flex-1"></span>

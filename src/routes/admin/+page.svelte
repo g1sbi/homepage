@@ -7,11 +7,18 @@
 <div class="font-mono text-sm flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <p class="text-primary-500 text-xs uppercase tracking-widest">articles</p>
-    <form method="POST" action="?/create" use:enhance>
-      <button type="submit" class="text-xs px-2 py-1 border border-primary-800 text-primary-600 hover:border-primary-500 hover:text-primary-400 transition-colors">
-        + new
-      </button>
-    </form>
+    <div class="flex items-center gap-2">
+      <form method="POST" action="?/create" use:enhance>
+        <button type="submit" class="text-xs px-2 py-1 border border-primary-800 text-primary-600 hover:border-primary-500 hover:text-primary-400 transition-colors">
+          + new
+        </button>
+      </form>
+      <form method="POST" action="?/logout" use:enhance>
+        <button type="submit" class="text-xs px-2 py-1 border border-primary-900 text-primary-800 hover:border-primary-700 hover:text-primary-600 transition-colors">
+          logout
+        </button>
+      </form>
+    </div>
   </div>
 
   <div class="flex flex-col">
