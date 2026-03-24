@@ -23,24 +23,36 @@
 
   <div class="flex flex-col">
     {#each data.articles as article}
-      <a
-        href="/admin/{article.id}"
-        class="flex items-center gap-3 py-3 px-2 border-b border-primary-900 hover:bg-primary-900/20 transition-colors group"
-      >
-        <span
-          class="shrink-0 text-xs px-1.5 py-0.5 border {article.status === 'published'
-            ? 'border-green-800 text-green-600'
-            : 'border-yellow-900 text-yellow-700'}"
+      <div class="flex items-center border-b border-primary-900 group">
+        <a
+          href="/admin/{article.id}"
+          class="flex-1 flex items-center gap-3 py-3 px-2 hover:bg-primary-900/20 transition-colors min-w-0"
         >
-          {article.status === 'published' ? 'pub' : 'draft'}
-        </span>
-        <span class="flex-1 text-primary-400 group-hover:text-primary-300 transition-colors truncate">
-          {article.title}
-        </span>
-        <span class="shrink-0 text-primary-800 text-xs">
-          {new Date(article.date_updated).toLocaleDateString()}
-        </span>
-      </a>
+          <span
+            class="shrink-0 text-xs px-1.5 py-0.5 border {article.status === 'published'
+              ? 'border-green-800 text-green-600'
+              : 'border-yellow-900 text-yellow-700'}"
+          >
+            {article.status === 'published' ? 'pub' : 'draft'}
+          </span>
+          <span class="flex-1 text-primary-400 group-hover:text-primary-300 transition-colors truncate">
+            {article.title}
+          </span>
+          <span class="shrink-0 text-primary-800 text-xs">
+            {new Date(article.date_updated).toLocaleDateString()}
+          </span>
+        </a>
+        <form
+          method="POST"
+          action="?/delete"
+          use:enhance
+          class="shrink-0"
+          on:submit={(e) => { if (!confirm(`Delete "${article.title}"?`)) e.preventDefault(); }}
+        >
+          <input type="hidden" name="id" value={article.id} />
+          <button type="submit" class="px-3 py-3 text-primary-900 hover:text-red-700 transition-colors text-sm">✕</button>
+        </form>
+      </div>
     {/each}
   </div>
 </div>

@@ -15,6 +15,15 @@ export const actions: Actions = {
     cookies.delete('dte', { path: '/admin' });
     throw redirect(302, '/admin/login');
   },
+  delete: async ({ request, fetch, cookies }) => {
+    const token = cookies.get('dt')!;
+    const data = await request.formData();
+    const id = String(data.get('id') ?? '');
+    await fetch(`https://cms.gisbi.me/items/articles/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  },
   create: async ({ fetch, cookies }) => {
     const token = cookies.get('dt')!;
     const article = await createArticle(fetch, token);
