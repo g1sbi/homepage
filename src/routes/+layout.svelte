@@ -2,7 +2,7 @@
   import '../app.css';
 </script>
 
-<div class="flex flex-col md:flex-row h-screen w-full">
+<div class="flex flex-col md:flex-row h-[100dvh] w-full">
   <div class="flex-1 min-h-0 flex flex-col min-w-0">
     <div class="terminal h-full w-full max-w-4xl mx-auto flex flex-col">
       <div class="terminal-title shrink-0">
@@ -13,7 +13,7 @@
       </div>
     </div>
   </div>
-  <aside class="font-mono text-sm shrink-0 py-4 px-4 md:pr-6 md:pl-0 border-t md:border-t-0 border-primary-800 flex flex-row md:flex-col gap-4 md:gap-6 justify-center md:justify-center">
+  <aside class="font-mono text-sm shrink-0 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] px-4 md:py-4 md:pr-6 md:pl-0 border-t md:border-t-0 border-primary-800 flex flex-row md:flex-col gap-4 md:gap-6 justify-center md:justify-center">
     <a
       href="https://github.com/g1sbi"
       target="_blank"
