@@ -5,7 +5,7 @@ const ls: CommandHandler = () => ({
   items: [
     { name: 'projects', path: '/projects' },
     { name: 'blog', path: '/blog' },
-    { name: 'music', path: '/music' }
+    //{ name: 'music', path: '/music' }
   ]
 });
 
