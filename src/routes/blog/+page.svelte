@@ -51,7 +51,11 @@
               >
                 <div class="flex items-baseline justify-between gap-4">
                   <span class="group-hover:underline underline-offset-2">{article.title}</span>
-                  <span class="shrink-0 text-primary-700">{formatDate(article.date_created)}</span>
+                  <div class="flex items-baseline gap-3 shrink-0 text-primary-700">
+                    <span>{formatDate(article.date_created)}</span>
+                    <span>◉ {article.views ?? 0}</span>
+                    <span>♥ {article.likes ?? 0}</span>
+                  </div>
                 </div>
                 {#if article.content}
                   <p class="mt-1 text-primary-700 text-xs leading-relaxed">{excerpt(article.content)}</p>
