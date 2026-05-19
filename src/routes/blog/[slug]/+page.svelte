@@ -5,7 +5,7 @@
   import { runCommand } from '$lib/tui/commands/index.js';
   import CommandLine from '$lib/components/tui/CommandLine.svelte';
   import { assetUrl } from '$lib/api.js';
-  import { excerpt } from '$lib/utils.js';
+  import { excerpt, formatDate } from '$lib/utils.js';
   import type { PageData } from './$types.js';
 
   export let data: PageData;
@@ -34,9 +34,6 @@
     input = '';
   }
 
-  function formatDate(dateStr: string): string {
-    return new Date(dateStr).toISOString().slice(0, 10);
-  }
 
   onMount(async () => {
     inputEl?.focus();
