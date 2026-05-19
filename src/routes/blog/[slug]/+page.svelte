@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { runCommand } from '$lib/tui/commands/index.js';
   import CommandLine from '$lib/components/tui/CommandLine.svelte';
@@ -18,6 +19,8 @@
   let likes = article.likes ?? 0;
   let liked = false;
   let shareStatus = '';
+
+  const description = excerpt(article.content ?? '', 160);
 
   function handleSubmit() {
     const line = input.trim();
@@ -47,9 +50,9 @@
         if (res.ok) {
           const result = await res.json();
           views = result.views;
+          localStorage.setItem(viewedKey, JSON.stringify([...viewed, article.id]));
         }
       } catch {}
-      localStorage.setItem(viewedKey, JSON.stringify([...viewed, article.id]));
     }
 
     // Restore liked state from localStorage
@@ -88,7 +91,7 @@
 
   async function handleShare() {
     const url = window.location.href;
-    const text = excerpt(article.content ?? '', 160);
+    const text = description;
 
     if (navigator.share) {
       try {
@@ -107,8 +110,9 @@
 <svelte:head>
   <title>{article.title}</title>
   <meta property="og:title" content={article.title} />
-  <meta property="og:description" content={excerpt(article.content ?? '', 160)} />
+  <meta property="og:description" content={description} />
   <meta property="og:type" content="article" />
+  <meta property="og:url" content={$page.url.href} />
   {#if article.cover_photo}
     <meta property="og:image" content={assetUrl(article.cover_photo.id, { width: '1200', format: 'webp' })} />
     <meta name="twitter:card" content="summary_large_image" />
