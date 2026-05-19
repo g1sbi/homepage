@@ -18,6 +18,8 @@ export interface Article {
   gallery: { directus_files_id: DirectusFile }[];
   date_created: string;
   date_updated: string;
+  views: number;
+  likes: number;
 }
 
 export function assetUrl(fileId: string, params?: Record<string, string>): string {
@@ -106,4 +108,48 @@ export async function updateArticle(
   if (!res.ok) return null;
   const { data } = await res.json();
   return data ?? null;
+}
+
+export async function incrementViews(
+  id: string,
+  fetch: typeof globalThis.fetch,
+  token: string
+): Promise<number> {
+  const res = await fetch(`${CMS_URL}/items/articles/${id}?fields=views`, {
+    headers: authHeaders(token),
+  });
+  if (!res.ok) return 0;
+  const { data } = await res.json();
+  const current: number = data?.views ?? 0;
+  const patchRes = await fetch(`${CMS_URL}/items/articles/${id}`, {
+    method: 'PATCH',
+    headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ views: current + 1 }),
+  });
+  if (!patchRes.ok) return current;
+  const { data: updated } = await patchRes.json();
+  return updated?.views ?? current + 1;
+}
+
+export async function incrementLikes(
+  id: string,
+  delta: 1 | -1,
+  fetch: typeof globalThis.fetch,
+  token: string
+): Promise<number> {
+  const res = await fetch(`${CMS_URL}/items/articles/${id}?fields=likes`, {
+    headers: authHeaders(token),
+  });
+  if (!res.ok) return 0;
+  const { data } = await res.json();
+  const current: number = data?.likes ?? 0;
+  const next = Math.max(0, current + delta);
+  const patchRes = await fetch(`${CMS_URL}/items/articles/${id}`, {
+    method: 'PATCH',
+    headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ likes: next }),
+  });
+  if (!patchRes.ok) return current;
+  const { data: updated } = await patchRes.json();
+  return updated?.likes ?? next;
 }
