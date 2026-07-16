@@ -56,6 +56,27 @@
           </div>
         </a>
       </div>
+      <div class="mb-6">
+        <a
+          href="https://readmepls.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block border border-primary-800 hover:border-primary-600 transition-colors max-w-sm"
+        >
+          <div class="aspect-video w-full overflow-hidden bg-surface-900 border-b border-primary-800">
+            <img
+              src="/readmepls.png"
+              alt=""
+              class="h-full w-full object-cover"
+            />
+          </div>
+          <div class="p-3 border-primary-800">
+            <span class="text-primary-300">readmepls</span>
+            <span class="text-primary-600 ml-2">—</span>
+            <span class="text-primary-500 ml-2">Your go-to article reader and organizer app</span>
+          </div>
+        </a>
+      </div>
     </div>
   </Tui>
 </main>
